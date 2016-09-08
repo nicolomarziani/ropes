@@ -1,13 +1,14 @@
 # Ropes
 
-Fun for hours: click and drag to create a rope, click drag the ball at the top of a rope to move it, double click a ball to delete a rope. 
+Fun for hours: click playwindow and drag to create a rope. Click drag the ball at the top of a rope to move it. Click playwindow and don't drag to create an ear. Click and drag an ear to move it. Click the small black square in the top left corner to change it to red and enter delete mode. Click it again to exit delete mode. When in delete mode, click a rope or an ear to delete it. 
 
 ## To Be Addressed Immediately
 
 ### UI
-* Uncomfortable jumping on double-click.
-* No ear creation functionality (ergo no sound), rope creation baked into several functions it shouldn't be. 
-* Ropes must be deleted in the reverse order in which they were created (fix requires hotspot div housekeeping).
+* ~~Uncomfortable jumping on double-click.~~
+* ~~No ear creation functionality (ergo no sound), rope creation baked into several functions it shouldn't be.~~ 
+* ~~Ropes must be deleted in the reverse order in which they were created (fix requires hotspot div housekeeping).~~
+* Needs to start looking/feeling better.
 
 ### Engine
 ### Audio
