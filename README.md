@@ -15,6 +15,7 @@ Fun for hours: click and drag to create a rope, click drag the ball at the top o
 ## Eventually . . .
 * More fun audio: atmospheric noise, two different kinds of ear (pulse and volume), periodic global changes.
 * Colors that change over time
+* Controls: buttons to switch tones, probably an eraser button (no double-clicking fix in sight). 
 * UI overhaul--move away from straight JS. 
 
 
