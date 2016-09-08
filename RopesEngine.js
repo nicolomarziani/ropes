@@ -26,8 +26,10 @@
 		this.addEar = function(ear){
 			for(var i = 0; i < this.ropes.length; i++){
 				var rope = this.ropes[i];
-				ear.ropes.push(new osc(main_out = delay, note = rope.tone));
-				ear.ropes[ear.ropes.length - 1].play();
+				var thisosc = new osc(main_out = delay, note = rope.tone)
+				thisosc.play();
+				ear.ropes.push(thisosc);
+				//ear.ropes[ear.ropes.length - 1].play();
 			}
 			this.ears.push(ear);
 		}
@@ -43,23 +45,41 @@
 		}
 		this.removeRope = function(index){
 			var temp_rope_array = new Array();
-			var temp_osc_array = new Array();
+			//var new_osc_array = new Array();
 			
 			for(var i = 0; i < this.ropes.length; i++){
 				if(i != index){
 					temp_rope_array.push(this.ropes[i]);
 				}
 			}
+			this.ropes = temp_rope_array;
+			//for(var i = 0; i < this.ropes.length; i++){
+			//	new_osc_array.push(new osc(main_out = delay, note = this.ropes[i].tone));
+			//}
+			//console.log(new_osc_array.length);
 			for(var i = 0; i < this.ears.length; i++){
-				this.ears[i].ropes[index].kill();
-				for(var j = 0; j < thia.ears[i].length; j++){
+				var new_osc_array = new Array();
+				for(var j = 0; j < this.ropes.length; j++){
+					new_osc_array.push(new osc(main_out = delay, note = this.ropes[j].tone));
+				}
+				for(var j = 0; j < this.ears[i].ropes.length; j++){
+					this.ears[i].ropes[j].kill();
+				}
+				this.ears[i].ropes = new Array();
+				for(var j = 0; j < new_osc_array.length; j++){
+					this.ears[i].ropes.push(new_osc_array[j]);
+					console.log(this.ears[i]);
+					console.log("now playing rope " + j + ": " + this.ears[i].ropes[j])
+					this.ears[i].ropes[j].play();
+				}
+				
+				/*for(var j = 0; j < this.ears[i].length; j++){
 					if(j != index){
 						temp_osc_array.push(this.ears[i].ropes[j]);
 					}
 				}
-				this.ears[i].ropes = temp_osc_array;
+				this.ears[i].ropes = temp_osc_array;*/
 			}
-			this.ropes = temp_rope_array;
 		}
 		this.removeEar = function(index){
 			var temp_ear_array = new Array();
@@ -71,7 +91,7 @@
 					temp_ear_array.push(this.ears[i]);
 				}
 			}
-			this.ears = temp_ear_array();
+			this.ears = temp_ear_array;
 		}
 		this.Run = function(){
 			drawLoop();
