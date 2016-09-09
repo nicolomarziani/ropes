@@ -16,7 +16,7 @@ Fun for hours: click playwindow and drag to create a rope. Click drag the ball a
 ## Eventually . . .
 * More fun audio: atmospheric noise, two different kinds of ear (pulse and volume), periodic global changes.
 * Colors that change over time
-* Controls: buttons to switch tones, probably an eraser button (no double-clicking fix in sight). 
+* Controls: buttons to switch tones, probably an eraser button ~~(no double-clicking fix in sight)~~ in addition to the perfectly-functioning double-click delete. 
 * UI overhaul--move away from straight JS. 
 
 
