@@ -1,6 +1,6 @@
 # Ropes
 
-Fun for hours: click playwindow and drag to create a rope. Click drag the ball at the top of a rope to move it. Click playwindow and don't drag to create an ear. Click and drag an ear to move it. Click the small black square in the top left corner to change it to red and enter delete mode. Click it again to exit delete mode. When in delete mode, click a rope or an ear to delete it. 
+Fun for hours: click playwindow and drag to create a rope. Click drag the ball at the top of a rope to move it. Click playwindow and don't drag to create an ear. Click and drag an ear to move it. Double-click a rope or an ear to delete it. Click the small black square in the top left corner to change it to red and enter delete mode. Click it again to exit delete mode. When in delete mode, click a rope or an ear to delete it. 
 
 ## To Be Addressed Immediately
 
@@ -16,7 +16,7 @@ Fun for hours: click playwindow and drag to create a rope. Click drag the ball a
 ## Eventually . . .
 * More fun audio: atmospheric noise, two different kinds of ear (pulse and volume), periodic global changes.
 * Colors that change over time
-* Controls: buttons to switch tones, probably an eraser button (no double-clicking fix in sight). 
+* Controls: buttons to switch tones, probably an eraser button ~~(no double-clicking fix in sight)~~ in addition to the perfectly-functioning double-click delete. 
 * UI overhaul--move away from straight JS. 
 
 
