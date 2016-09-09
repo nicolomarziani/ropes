@@ -82,6 +82,15 @@ function unclickDrag(){
 	if(drag){
 		up = [event.clientX, event.clientY];
 		drag = false;
+		if(selection == false){
+			if(distance(down, up) > 30){
+			main.addRope(new Rope(down, up, mynote = 440));
+			rope_hotspots.push(document.body.appendChild(createHotspot("rope")));
+		}else{
+			main.addEar(new Ear(up));
+			ear_hotspots.push(document.body.appendChild(createHotspot("ear")));
+		}
+		}
 	}else{
 		up = [mousex, mousey];
 		snaptrigger = false;
