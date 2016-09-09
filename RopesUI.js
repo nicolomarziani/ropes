@@ -1,3 +1,9 @@
+//Constants
+
+var FRAME_RATE = 60; //per second
+
+
+
 var playwindow = document.getElementById("playwindow");
 var down = 0;
 var up = 0;
@@ -46,6 +52,7 @@ function createHotspot(type){
 	hotspotnode.style.height = "50px";
 	hotspotnode.style.width = "50px";
 	hotspotnode.style.position = "absolute";
+	hotspotnode.setAttribute("onmousemove", "mousex = event.clientX; mousey = event.clientY");
 	hotspotnode.setAttribute("onmousedown", "clickDrag(event, this)");
 	hotspotnode.setAttribute("onmouseup", "unclickDrag()");
 	hotspotnode.setAttribute("ondblclick", "rub(this, event)");
@@ -72,20 +79,25 @@ function clickDrag(e, elmnt){
 	}
 }
 function unclickDrag(){
-	up = [mousex, mousey];
-	snaptrigger = false;
-	console.log("snaptrigger: " + snaptrigger);
-	if(rub_on == false){
-		var selected_item = document.getElementById(selected_item_id);
-		var parsedItemId = parseHotspotId(selected_item);
-		if(parseHotspotId(selected_item)[0] == "ropes"){
-			selected_item.style.left = (main.ropes[(parsedItemId[1])].pend.pivot[0] - 19).toString() + "px";
-			selected_item.style.top = (main.ropes[(parsedItemId[1])].pend.pivot[1] - 19).toString() + "px";	
-			selection = false;
-		}else if(parseHotspotId(selected_item)[0] == "ears"){
-			selected_item.style.left = (main.ears[(parsedItemId[1])].xy[0] - 19).toString() + "px";
-			selected_item.style.top = (main.ears[(parsedItemId[1])].xy[1] - 19).toString() + "px";	
-			selection = false;
+	if(drag){
+		up = [event.clientX, event.clientY];
+		drag = false;
+	}else{
+		up = [mousex, mousey];
+		snaptrigger = false;
+		console.log("snaptrigger: " + snaptrigger);
+		if(rub_on == false){
+			var selected_item = document.getElementById(selected_item_id);
+			var parsedItemId = parseHotspotId(selected_item);
+			if(parseHotspotId(selected_item)[0] == "ropes"){
+				selected_item.style.left = (main.ropes[(parsedItemId[1])].pend.pivot[0] - 19).toString() + "px";
+				selected_item.style.top = (main.ropes[(parsedItemId[1])].pend.pivot[1] - 19).toString() + "px";	
+				selection = false;
+			}else if(parseHotspotId(selected_item)[0] == "ears"){
+				selected_item.style.left = (main.ears[(parsedItemId[1])].xy[0] - 19).toString() + "px";
+				selected_item.style.top = (main.ears[(parsedItemId[1])].xy[1] - 19).toString() + "px";	
+				selection = false;
+			}
 		}
 	}
 	

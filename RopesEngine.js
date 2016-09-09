@@ -1,3 +1,7 @@
+//CONSTANTS
+
+var METER = 200; //in px
+
 //takes a comma-separated string, gives an tuple. Not employed here, but will be helpful in the future.
 	function point(string){
 		return string.split(",");
@@ -108,8 +112,8 @@
 		this.gravity = 9.80665;
 		var pend = this;
 		this.update = function(){
-			var k = -pend.gravity/(pend.length/200);
-			var step = .01;
+			var k = -pend.gravity/(pend.length/METER);
+			var step = 1/FRAME_RATE;
 			var acceleration = k * Math.sin(pend.angle);
 			pend.velocity += acceleration * step;
 			pend.angle += pend.velocity * step;
