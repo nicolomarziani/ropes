@@ -9,6 +9,7 @@ var ear_hotspots = new Array();
 var selection = false;
 var selected_item_id;
 var rub_on = false;
+var snaptrigger = false;
 
 
 
@@ -47,6 +48,7 @@ function createHotspot(type){
 	hotspotnode.style.position = "absolute";
 	hotspotnode.setAttribute("onmousedown", "clickDrag(event, this)");
 	hotspotnode.setAttribute("onmouseup", "unclickDrag()");
+	hotspotnode.setAttribute("ondblclick", "rub(this, event)");
 	hotspotnode.style.left = (down[0] - 20).toString() + "px"; 
 	hotspotnode.style.top = (down[1] - 20).toString() + "px";
 	if(type == "rope"){
@@ -59,6 +61,7 @@ function createHotspot(type){
 	return hotspotnode;
 }
 function clickDrag(e, elmnt){
+	down = [mousex, mousey];
 	if(rub_on == false){
 		e.preventDefault();
 		selection = true;
@@ -69,6 +72,9 @@ function clickDrag(e, elmnt){
 	}
 }
 function unclickDrag(){
+	up = [mousex, mousey];
+	snaptrigger = false;
+	console.log("snaptrigger: " + snaptrigger);
 	if(rub_on == false){
 		var selected_item = document.getElementById(selected_item_id);
 		var parsedItemId = parseHotspotId(selected_item);
@@ -82,6 +88,7 @@ function unclickDrag(){
 			selection = false;
 		}
 	}
+	
 }
 function rub(elmnt, e){
 	e.preventDefault();
@@ -148,15 +155,21 @@ function drawLoop(){
 		playwindow.setAttribute("height", window.innerHeight);
 		ctxt.clearRect(0, 0, window.innerWidth, window.innerHeight);
 		if(selection){
-			var itemId = parseHotspotId(document.getElementById(selected_item_id));
-			if(itemId[0] == "ropes"){
-				main.ropes[itemId[1]].pend.pivot = [mousex, mousey];
-				document.getElementById(selected_item_id).style.left = (mousex - 25) + "px";
-				document.getElementById(selected_item_id).style.top = (mousey - 25) + "px";
-			}else if(itemId[0] == "ears"){
-				main.ears[itemId[1]].xy = [mousex, mousey];
-				document.getElementById(selected_item_id).style.left = (mousex - 25) + "px";
-				document.getElementById(selected_item_id).style.top = (mousey - 25) + "px";
+			if(distance(down, [mousex, mousey]) > 30){
+				snaptrigger = true
+				console.log("snaptrigger: " + snaptrigger);
+			}
+			if(snaptrigger){
+				var itemId = parseHotspotId(document.getElementById(selected_item_id));
+				if(itemId[0] == "ropes"){
+					main.ropes[itemId[1]].pend.pivot = [mousex, mousey];
+					document.getElementById(selected_item_id).style.left = (mousex - 25) + "px";
+					document.getElementById(selected_item_id).style.top = (mousey - 25) + "px";
+				}else if(itemId[0] == "ears"){
+					main.ears[itemId[1]].xy = [mousex, mousey];
+					document.getElementById(selected_item_id).style.left = (mousex - 25) + "px";
+					document.getElementById(selected_item_id).style.top = (mousey - 25) + "px";
+				}
 			}
 		}
 		if(drag){
