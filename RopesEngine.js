@@ -22,7 +22,7 @@ var METER = 200; //in px
 			for(var i = 0; i < this.ears.length; i++){
 				var ear = this.ears[i];
 				var thisrope = this.ropes[this.ropes.length - 1];
-				var thissound = new osc(main_out = delay, note = thisrope.tone);
+				var thissound = new osc(main_out = inp, note = thisrope.tone);
 				ear.ropes.push(thissound);
 				ear.ropes[ear.ropes.length - 1].play();
 			}
@@ -30,7 +30,7 @@ var METER = 200; //in px
 		this.addEar = function(ear){
 			for(var i = 0; i < this.ropes.length; i++){
 				var rope = this.ropes[i];
-				var thisosc = new osc(main_out = delay, note = rope.tone)
+				var thisosc = new osc(main_out = inp, note = rope.tone)
 				thisosc.play();
 				ear.ropes.push(thisosc);
 				//ear.ropes[ear.ropes.length - 1].play();
@@ -64,7 +64,7 @@ var METER = 200; //in px
 			for(var i = 0; i < this.ears.length; i++){
 				var new_osc_array = new Array();
 				for(var j = 0; j < this.ropes.length; j++){
-					new_osc_array.push(new osc(main_out = delay, note = this.ropes[j].tone));
+					new_osc_array.push(new osc(main_out = inp, note = this.ropes[j].tone));
 				}
 				for(var j = 0; j < this.ears[i].ropes.length; j++){
 					this.ears[i].ropes[j].kill();
@@ -135,10 +135,10 @@ var METER = 200; //in px
 		this.update = function(){ 
 				for(var i = 0; i < this.ropes.length; i++){
 					var bob_distance = distance(this.xy, main.ropes[i].pend.bob);
-					if(bob_distance > 200){
+					if(bob_distance > 250){
 						this.ropes[i].vol(0);
 					}else{
-						this.ropes[i].vol(1-(bob_distance/200));
+						this.ropes[i].vol(1-(bob_distance/250));
 					}
 				}
 		}

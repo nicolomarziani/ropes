@@ -1,10 +1,11 @@
 //Constants
 
-var FRAME_RATE = 60; //per second
+var FRAME_RATE = 60; //per second, obviously
 
 
 
 var playwindow = document.getElementById("playwindow");
+//var overlay = document.getElementById("overlay");
 var down = 0;
 var up = 0;
 var drag = false;
@@ -38,9 +39,14 @@ playwindow.onmouseup = function(event){
 	}
 	
 }
-playwindow.onclick = function(){
+playwindow.onclick = function(event){
+	var note = 261.62; 
+	if(down[0] > window.innerWidth/4){note = 329.62;}
+	if(down[0] > window.innerWidth/2){note = 440.00;}
+	if(down[0] > 3 * window.innerWidth/4){note = 587.32;}
+	
 	if(distance(down, up) > 30){
-		main.addRope(new Rope(down, up, mynote = 440));
+		main.addRope(new Rope(down, up, mynote = note));
 		rope_hotspots.push(document.body.appendChild(createHotspot("rope")));
 	}else{
 		main.addEar(new Ear(up));
@@ -174,6 +180,8 @@ function drawLoop(){
 	setInterval(function(){
 		playwindow.setAttribute("width", window.innerWidth);
 		playwindow.setAttribute("height", window.innerHeight);
+		//overlay.style.width = window.innerWidth + "px";
+		//overlay.style.height = window.innerHeight + "px";
 		ctxt.clearRect(0, 0, window.innerWidth, window.innerHeight);
 		if(selection){
 			if(distance(down, [mousex, mousey]) > 30){
@@ -194,7 +202,7 @@ function drawLoop(){
 			}
 		}
 		if(drag){
-			drawRope(down, [mousex, mousey]);
+			drawRope(down, [mousex, mousey], val = 0, create = true);
 		}
 		if(main.ropes.length > 0){
 			for(var i = 0; i < main.ropes.length; i ++){
@@ -214,34 +222,43 @@ function drawLoop(){
 var playwindow = document.getElementById("playwindow");
 var ctxt = playwindow.getContext("2d");
 
-function drawPivot(xy){
+function drawPivot(xy, val = 0, create = false){
 	ctxt.beginPath();
+	if(create){
+		ctxt.strokeStyle = "snow";
+		ctxt.fillStyle = "snow";
+	}
+	else{
+		ctxt.strokeStyle = "DeepPink";
+		ctxt.fillStyle = "DeepPink";
+	}
 	ctxt.arc(xy[0], xy[1], 5, 0, 2 * Math.PI);
-	ctxt.fillStyle = "snow";
 	ctxt.fill();
-}
-function drawRod(piv, bob){
-	ctxt.moveTo(piv[0], piv[1]);
-	ctxt.lineTo(bob[0], bob[1]);
-	ctxt.lineWidth = 10;
-	ctxt.strokeStyle = "snow";
 	ctxt.stroke();
 }
-function drawBob(xy){
+function drawRod(piv, bob, val = 0, create = false){
+	ctxt.moveTo(piv[0], piv[1]);
+	ctxt.lineTo(bob[0], bob[1]);
+	ctxt.lineWidth = 15;
+	ctxt.strokeStyle = "DeepPink"/*"snow"*/;
+	ctxt.stroke();
+}
+function drawBob(xy, val = 0, create = false){
 	ctxt.beginPath();
 	ctxt.arc(xy[0], xy[1], 20, 0, 2 * Math.PI);
-	ctxt.fillStyle = "snow";
+	ctxt.strokeStyle = "DeepPink";
+	ctxt.fillStyle = "DeepPink";
+	ctxt.stroke();
 	ctxt.fill();
 }
-
-function drawRope(piv, bob){
-	drawPivot(piv);
-	drawRod(piv, bob);
-	drawBob(bob);
+function drawRope(piv, bob, val = 0, create = false){
+	drawRod(piv, bob, val, create);
+	drawPivot(piv, val, create);
+	drawBob(bob, val, create);
 }
-function drawEar(xy){
+function drawEar(xy, val = 0, create = false){
 	ctxt.beginPath();
-	ctxt.arc(xy[0], xy[1], 25, 0, 2 * Math.PI);
 	ctxt.fillStyle = "#FFEC8B";
+	ctxt.arc(xy[0], xy[1], 35, 0, 2 * Math.PI);
 	ctxt.fill();
 }

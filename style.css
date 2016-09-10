@@ -1,4 +1,16 @@
 body{
-	background-color:lightskyblue;
+	background-color:black/*lightskyblue*/;
 	overflow:hidden;
+}
+#overlay{
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:-1;
+	background: lightskyblue; 
+	background: -webkit-linear-gradient(lightgoldenrod1, lightskyblue, lightskyblue, lightskyblue, lightskyblue, white); 
+	background: -o-linear-gradient(lightgoldenrod1, lightskyblue, lightskyblue, lightskyblue, lightskyblue, white); 
+	background: -moz-linear-gradient(lightgoldenrod1, lightskyblue, lightskyblue, lightskyblue, lightskyblue, white); 
+	background: linear-gradient(white, lightskyblue, lightskyblue, lightskyblue, lightskyblue, #ffec8b); 
+	opacity:0.3;
 }

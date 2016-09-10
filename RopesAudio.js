@@ -73,7 +73,8 @@ osc.connect(fx.i);
 
 */
 
-
+var inp = ropeAudioContext.createGain();
+inp.gain.value = 0.7;
 var compressor = ropeAudioContext.createDynamicsCompressor();
 	compressor.threshold.value = -35;
 	compressor.knee.value = 40;
@@ -87,9 +88,11 @@ maingain.gain.value = .5;
 compressor.connect(maingain);
 maingain.connect(ropeAudioContext.destination);
 var feedback = ropeAudioContext.createGain();
-feedback.gain.value = .4;
+feedback.gain.value = .3;
 var delay = ropeAudioContext.createDelay();
 delay.delayTime.value = 0.4;
+inp.connect(delay);
+inp.connect(compressor);
 delay.connect(compressor);
 delay.connect(feedback);
 feedback.connect(delay);
