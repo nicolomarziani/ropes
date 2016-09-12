@@ -1,6 +1,6 @@
 # Ropes
 
-Fun for hours: click the playwindow and drag to create a rope. Click and drag the ball at the top of a rope to move it. Click playwindow without dragging to create an ear. Click and drag an ear to move it. Double-click a rope or an ear to delete it. ~~Click the small black square in the top left corner to change it to red and enter delete mode. Click it again to exit delete mode. When in delete mode, click a rope or an ear to delete it.~~ Double click a rope or an ear to delete it. Click a rope or an ear anf hold for half a second to bring up empty context menu. 
+Fun for hours: click the playwindow and drag to create a rope. Click and drag the ball at the top of a rope to move it. Click playwindow without dragging to create an ear. Click and drag an ear to move it. ~~Click the small black square in the top left corner to change it to red and enter delete mode. Click it again to exit delete mode. When in delete mode, click a rope or an ear to delete it.~~ Double click a rope or an ear to delete it. Click a rope or an ear and hold for half a second to bring up empty context menu. 
 
 ## To Be Addressed Immediately
 
