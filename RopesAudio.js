@@ -1,4 +1,4 @@
-var ropeAudioContext = (new AudioContext() || webkitAudioContext());
+var ropeAudioContext = (new AudioContext() || new webkitAudioContext());
 /*
 //EffectsChain: defines a chain of audio effects. Has an input gainstage, an array of effects, and an output gainstage.
 var EffectsChain = function(){
@@ -88,26 +88,26 @@ maingain.gain.value = .5;
 compressor.connect(maingain);
 maingain.connect(ropeAudioContext.destination);
 var feedback = ropeAudioContext.createGain();
-feedback.gain.value = .3;
+feedback.gain.value = .2;
 var delay = ropeAudioContext.createDelay();
-delay.delayTime.value = 0.4;
+delay.delayTime.value = 0.2;
 inp.connect(delay);
 inp.connect(compressor);
 delay.connect(compressor);
 delay.connect(feedback);
 feedback.connect(delay);
 
-function osc(main_out, note = 440, type = "sine", loudness = 0, detune = 0){
+function osc(main_out, note, type/* = "sine"*/){
 	this.osci = ropeAudioContext.createOscillator();
 	this.osci.frequency.value = note;
-	this.osci.detune.value = detune;
+	this.osci.detune.value = 0;
 	this.osci.style = type;
 	this.volume = ropeAudioContext.createGain();
-	this.volume.gain.value = loudness;
+	this.volume.gain.value = 0;
 	this.osci.connect(this.volume);
 	this.volume.connect(main_out);
-	this.play = function(offset = 0){
-		this.osci.start(offset);
+	this.play = function(){
+		this.osci.start(0);
 	}
 	this.mute = function(){
 		this.volume.gain.value = 0;
@@ -115,9 +115,9 @@ function osc(main_out, note = 440, type = "sine", loudness = 0, detune = 0){
 	this.vol = function(val){
 		this.volume.gain.value = val;
 	}
-	this.kill = function(offset = 0){
-		this.osci.stop(offset);
-		this.osci.disconnect(offset);
+	this.kill = function(){
+		this.osci.stop(0);
+		this.osci.disconnect(0);
 	}
 }
 

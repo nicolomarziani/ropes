@@ -5,19 +5,17 @@
 	<link rel="stylesheet" href="./style.css" type="text/css">
 </head>
 
+
 <body>
-	<!--<div id="overlay"></div>-->
 	<div id="rubtoggle" style="height:20px;width:20px;background-color:black;position:absolute;left:0px;top:0px;" onclick="toggleRub()"></div>
 	<canvas id="playwindow"></canvas>
 </body>
 
-<script src="./RopesEngine.js"></script>
-<script src="./RopesAudio.js"></script>
-<script src="./RopesUI.js"></script>
+<script src="RopesUI.js"></script>
+<script src="RopesEngine.js"></script>
+<script src="RopesAudio.js"></script>
+
 <script>
-	var overlay = document.getElementById("overlay");
-	//overlay.style.width = window.innerWidth + "px";
-	//overlay.style.height = window.innerHeight + "px";
 	main.Run();
 </script>
 
