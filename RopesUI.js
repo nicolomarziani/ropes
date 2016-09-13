@@ -73,6 +73,10 @@ function drawLoop(){
 					main.ears[itemId[1]].xy = [mousex, mousey];
 					document.getElementById(selected_item_id).style.left = (mousex - 25) + "px";
 					document.getElementById(selected_item_id).style.top = (mousey - 25) + "px";
+				}else if(itemId[0] == "pulseears"){
+					main.pulseears[itemId[1]].xy = [mousex, mousey];
+					document.getElementById(selected_item_id).style.left = (mousex - 25) + "px";
+					document.getElementById(selected_item_id).style.top = (mousey - 25) + "px";
 				}
 			}
 		}
@@ -93,6 +97,13 @@ function drawLoop(){
 				drawEar(main.ears[i].xy);
 			}
 			main.updateEars();
+		}
+		if(main.pulseears.length > 0){
+			pulse_catch_counter++;
+			for(var i = 0; i < main.pulseears.length; i++){
+				drawPulseEar(main.pulseears[i].xy);
+			}
+			main.updatePulseEars();
 		}
 
 	}, 1000/FRAME_RATE);
@@ -138,7 +149,21 @@ playwindow.onclick = function(event){
 		ear_hotspots.push(document.body.appendChild(createHotspot("ear")));
 	}
 }
-
+playwindow.oncontextmenu = function(event){
+	event.preventDefault();
+	selection = false;
+	main.addPulseEar(new PulseEar(up));
+	pulseear_hotspots.push(document.body.appendChild(createHotspot("pulseear")));
+	/*up = [event.clientX, event.clientY];
+	drag = false;
+	item_moving= false;
+	if(show_context){
+		killContextMenu();
+	}
+	show_context = false;
+	click_hold_counter = 0;*/
+	
+}
 
 //++Rope/Ear Interactivity Functions
 
@@ -157,7 +182,18 @@ function createHotspot(type){
 		hotspotnode.setAttribute("id", type + "s-" + (main.ropes.length - 1).toString());
 		hotspotnode.setAttribute("class", type + "-hotspot");
 	}else if(type == "ear"){
+		hotspotnode.style.height = "70px";
+		hotspotnode.style.width = "70px";
+		hotspotnode.style.left = (down[0] - 30).toString() + "px"; 
+		hotspotnode.style.top = (down[1] - 30).toString() + "px";
 		hotspotnode.setAttribute("id", type + "s-" + (main.ears.length - 1).toString());
+		hotspotnode.setAttribute("class", type + "-hotspot");
+	}else if(type == "pulseear"){
+		hotspotnode.style.height = "70px";
+		hotspotnode.style.width = "70px";
+		hotspotnode.style.left = (down[0] - 30).toString() + "px"; 
+		hotspotnode.style.top = (down[1] - 30).toString() + "px";
+		hotspotnode.setAttribute("id", type + "s-" + (main.pulseears.length - 1).toString());
 		hotspotnode.setAttribute("class", type + "-hotspot");
 	}
 	return hotspotnode;
@@ -200,6 +236,10 @@ function deselect(){
 			}else if(parseHotspotId(selected_item)[0] == "ears"){
 				selected_item.style.left = (main.ears[(parsedItemId[1])].xy[0] - 19).toString() + "px";
 				selected_item.style.top = (main.ears[(parsedItemId[1])].xy[1] - 19).toString() + "px";	
+				selection = false;
+			}else if(parseHotspotId(selected_item)[0] == "pulseears"){
+				selected_item.style.left = (main.pulseears[(parsedItemId[1])].xy[0] - 19).toString() + "px";
+				selected_item.style.top = (main.pulseears[(parsedItemId[1])].xy[1] - 19).toString() + "px";	
 				selection = false;
 			}
 		}
@@ -249,7 +289,24 @@ function rub(elmnt, e){
 		for(var i = 0; i < ear_hotspots.length; i++){
 				ear_hotspots[i].setAttribute("id", "ears-" + i);
 		}
+	}else if(parsedId[0] == "pulseears"){
+		main.removePulseEar(parseInt(parsedId[1], 10));
+		pulseear_hotspots[parsedId[1]].parentElement.removeChild(pulseear_hotspots[parsedId[1]]);
+		var new_hotspots = new Array();
+		for(var i = 0; i < pulseear_hotspots.length; i++){
+			//$$$console.log(parsedId[1] + " is equal to " + i + ": " + (i == parsedId[1]))
+			if(i != parsedId[1]){
+				new_hotspots.push(pulseear_hotspots[i]);
+			}
+		}
+		pulseear_hotspots = new_hotspots;
+		//$$$
+		console.log(ear_hotspots);
+		for(var i = 0; i < pulseear_hotspots.length; i++){
+				pulseear_hotspots[i].setAttribute("id", "pulseears-" + i);
+		}
 	}
+	mouseUp();
 }
 function parseHotspotId(elmnt){
 	var name = elmnt.getAttribute("id");
@@ -296,7 +353,9 @@ function drawContextMenu(){
 	}
 }
 function killContextMenu(){
-	context_menu.parentElement.removeChild(context_menu);
+	if(show_context){
+		context_menu.parentElement.removeChild(context_menu);
+	}
 }
 
 
@@ -340,5 +399,15 @@ function drawEar(xy, val, create){
 	ctxt.beginPath();
 	ctxt.fillStyle = "#FFEC8B";
 	ctxt.arc(xy[0], xy[1], 35, 0, 2 * Math.PI);
+	ctxt.fill();
+}
+function drawPulseEar(xy, val, create){
+	ctxt.beginPath();
+	ctxt.moveTo(xy[0] - 35, xy[1]);
+	ctxt.lineTo(xy[0], xy[1] - 35);
+	ctxt.lineTo(xy[0] + 35, xy[1]);
+	ctxt.lineTo(xy[0], xy[1] + 35);
+	ctxt.closePath();
+	ctxt.fillStyle = "#FFEC8B";
 	ctxt.fill();
 }

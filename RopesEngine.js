@@ -26,6 +26,13 @@ var METER = 200; //in px
 				ear.ropes.push(thissound);
 				ear.ropes[ear.ropes.length - 1].play();
 			}
+			for(var i = 0; i < this.pulseears.length; i++){
+				var pulseear = this.pulseears[i];
+				var thisrope = this.ropes[this.ropes.length - 1];
+				var thissound = new pulse(thisrope.tone/2, inp);
+				pulseear.ropes.push(thissound);
+				//pulseear.ropes[pulseear.ropes.length - 1].play();
+			}
 		}
 		this.addEar = function(ear){
 			for(var i = 0; i < this.ropes.length; i++){
@@ -75,6 +82,29 @@ var METER = 200; //in px
 					console.log(this.ears[i]);
 					console.log("now playing rope " + j + ": " + this.ears[i].ropes[j])
 					this.ears[i].ropes[j].play();
+				}
+				
+				/*for(var j = 0; j < this.ears[i].length; j++){
+					if(j != index){
+						temp_osc_array.push(this.ears[i].ropes[j]);
+					}
+				}
+				this.ears[i].ropes = temp_osc_array;*/
+			}
+			for(var i = 0; i < this.pulseears.length; i++){
+				var new_osc_array = new Array();
+				for(var j = 0; j < this.ropes.length; j++){
+					new_osc_array.push(new pulse(this.ropes[j].tone/2, inp));
+				}
+				/*for(var j = 0; j < this.pulseears[i].ropes.length; j++){
+					this.pulseears[i].ropes[j].kill();
+				}*/
+				this.pulseears[i].ropes = new Array();
+				for(var j = 0; j < new_osc_array.length; j++){
+					this.pulseears[i].ropes.push(new_osc_array[j]);
+					console.log(this.ears[i]);
+					console.log("now playing rope " + j + ": " + this.ears[i].ropes[j])
+					//this.ears[i].ropes[j].play();
 				}
 				
 				/*for(var j = 0; j < this.ears[i].length; j++){
