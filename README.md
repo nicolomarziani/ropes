@@ -5,18 +5,16 @@ Fun for hours: click the playwindow and drag to create a rope. Click and drag th
 ## To Be Addressed Immediately
 
 ### UI
-* ~~Uncomfortable jumping on double-click.~~
-* ~~No ear creation functionality (ergo no sound), rope creation baked into several functions it shouldn't be.~~ 
-* ~~Ropes must be deleted in the reverse order in which they were created (fix requires hotspot div housekeeping).~~
-* ~~Needs to start looking/feeling better.~~
+* Make better looking
+* Think about audio cues on creation, deletion, and moving of playboard objects
+* Rewrite in JQuery
+* Reimagine input--consider keypresses. 
 
 ### Engine
-### Audio
 
-## Eventually . . .
-* More fun audio: atmospheric noise, two different kinds of ear (pulse and volume), periodic global changes.
-* Colors that change over time
-* Controls: buttons to switch tones, probably an eraser button ~~(no double-clicking fix in sight)~~ in addition to the perfectly-functioning double-click delete. 
-* UI overhaul--move away from straight JS. 
+### Audio
+* Reimplement with WAD
+
+
 
 
